@@ -8,11 +8,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.function.Supplier;
 
 @RestController
 @RequestMapping("/drugs/")
+@Slf4j
 public class DrugsController {
     private final FDADrugService fdaDrugService;
 
@@ -31,8 +36,7 @@ public class DrugsController {
     public DrugsFdaResponse getManufacturerDrugs(
             @PathVariable @NonNull final String manufacturer
     ) {
-        DrugsFdaResponse byManufacturer = this.fdaDrugService.getByManufacturer(manufacturer);
-        return byManufacturer;
+        return handleNotFoundException(() -> this.fdaDrugService.getByManufacturer(manufacturer));
     }
 
     @Operation(summary = "Get Manufacturer Brand Drugs")
@@ -47,6 +51,15 @@ public class DrugsController {
             @PathVariable @NonNull final String manufacturer,
             @PathVariable @NonNull final String brand
     ) {
-        return this.fdaDrugService.getByManufacturerBrand(manufacturer, brand);
+        return handleNotFoundException(() -> this.fdaDrugService.getByManufacturerBrand(manufacturer, brand));
+    }
+
+    private static DrugsFdaResponse handleNotFoundException(@NonNull final Supplier<DrugsFdaResponse> supplier) {
+        try {
+            return supplier.get();
+        } catch (HttpClientErrorException.NotFound e) {
+            log.debug("DrugsFdaResponse supplier raised Not Found exception", e);
+            return new DrugsFdaResponse();
+        }
     }
 }
