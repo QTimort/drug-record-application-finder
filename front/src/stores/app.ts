@@ -3,10 +3,11 @@ import { defineStore } from 'pinia';
 import { getVersion } from '@/api/v1/version';
 import { getEnvOrDefault } from '@/config/env';
 import { defineInitializableStore } from '@/stores/defineInitializableStore';
+import type {BackVersion} from "@/types/drafModels";
 
 export interface AppState {
   apiEndpoint: string;
-  serverVersion: string | null;
+  serverVersion: BackVersion | null;
 }
 
 export type AsyncError = { error?: unknown };
@@ -24,7 +25,7 @@ export const useAppStore = defineInitializableStore(
         // todo validate url
         this.apiEndpoint = apiEndpoint;
         try {
-          this.serverVersion = (await getVersion(this.apiEndpoint)) as string;
+          this.serverVersion = await getVersion(this.apiEndpoint);
           return {};
         } catch (e: unknown) {
           return {

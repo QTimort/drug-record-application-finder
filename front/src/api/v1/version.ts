@@ -1,10 +1,10 @@
 import { mande } from 'mande';
+import type {BackVersion} from "@/types/drafModels";
 
 /**
  *
  */
-export function getVersion(url: string) {
+export function getVersion(url: string): Promise<BackVersion> {
   const version = mande(url);
-  // todo set type
-  return version.get('/api/v1/version');
+  return version.get<BackVersion>('/api/v1/version');
 }
