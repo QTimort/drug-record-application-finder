@@ -3,6 +3,7 @@ package com.diguiet.draf.back.rest;
 
 import com.diguiet.draf.back.controllers.rest.DrugsController;
 import com.diguiet.draf.common.models.fda.DrugsFdaResponse;
+import com.diguiet.draf.common.models.fda.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;
@@ -13,9 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,6 +26,9 @@ public class DrugsControllerTest {
 
     private final DrugsController drugsController;
     private final MockMvc mockMvc;
+
+    private static final String MANUFACTURER = "Hospira";
+    private static final String BRAND = "HEPARIN SODIUM";
 
     public DrugsControllerTest(
             @Autowired @NonNull final DrugsController drugsController,
@@ -40,18 +45,21 @@ public class DrugsControllerTest {
 
     @Test
     public void manufacturerDrugsShouldContainResult() throws Exception {
-        testDrugsEndpoint("/drugs/manufacturers/Hospira, Inc.");
+        testDrugsEndpoint("/drugs/manufacturers/" + MANUFACTURER, MANUFACTURER);
     }
 
     @Test
     public void manufacturerBrandDrugsShouldContainResult() throws Exception {
-        testDrugsEndpoint("/drugs/manufacturers/Hospira, Inc./brands/HEPARIN SODIUM");
+        testDrugsEndpoint("/drugs/manufacturers/" + MANUFACTURER + "/brands/" + BRAND, MANUFACTURER);
     }
 
-    private void testDrugsEndpoint(String urlTemplate) throws Exception {
+    private void testDrugsEndpoint(
+            @NonNull final String urlTemplate,
+            @NonNull final String manufacturer
+    )
+            throws Exception {
         final MvcResult mvcResult = this.mockMvc
                 .perform(get(urlTemplate))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
         final String json = mvcResult.getResponse().getContentAsString();
@@ -64,5 +72,16 @@ public class DrugsControllerTest {
                 parsedResponse.getMeta().getResults().getTotal(),
                 parsedResponse.getResults().size()
         );
+        final Optional<Result> optionalInvalidResult = parsedResponse.getResults()
+                .stream()
+                .filter(r -> r.getOpenfda().getManufacturer_name().stream().noneMatch(m -> m.contains(manufacturer)))
+                .findAny();
+        Assertions.assertFalse(
+                optionalInvalidResult.isPresent(),
+                "Unexpected manufacturer "
+                        + " returned by API"
+
+        );
+
     }
 }
