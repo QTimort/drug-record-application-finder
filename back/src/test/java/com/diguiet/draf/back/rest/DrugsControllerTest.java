@@ -37,12 +37,12 @@ public class DrugsControllerTest {
 
     @Test
     public void manufacturerDrugsShouldContainResult() throws Exception {
-        testDrugsEndpoint("/drugs/manufacturers/Hospira,%20Inc./");
+        testDrugsEndpoint("/drugs/manufacturers/Hospira, Inc.");
     }
 
     @Test
     public void manufacturerBrandDrugsShouldContainResult() throws Exception {
-        testDrugsEndpoint("/drugs/manufacturers/Hospira,%20Inc./brands/HEPARIN%20SODIUM");
+        testDrugsEndpoint("/drugs/manufacturers/Hospira, Inc./brands/HEPARIN SODIUM");
     }
 
     private void testDrugsEndpoint(String urlTemplate) throws Exception {
