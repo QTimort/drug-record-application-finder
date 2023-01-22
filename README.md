@@ -37,7 +37,7 @@ To install Docker Compose follow the instructions at https://docs.docker.com/com
 
 3. Start the back-end:
    ```shell
-      mvn spring-boot:run -f ./back/pom.xml"
+      mvn spring-boot:run -f ./back/pom.xml
    ```
 
 4. Start the front-end:
