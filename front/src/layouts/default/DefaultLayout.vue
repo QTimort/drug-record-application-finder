@@ -11,5 +11,5 @@
 <script lang="ts" setup>
 import DefaultBar from './AppBar.vue';
 import DefaultFooter from './AppFooter.vue';
-import DefaultView from './View.vue';
+import DefaultView from './DefaultRouterView.vue';
 </script>

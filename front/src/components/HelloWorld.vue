@@ -1,8 +1,8 @@
 <template>
   <v-container class="fill-height">
-    <h1 class="green">{{ msg }}</h1>
+    <h1 class="bg-green">{{ msg }}</h1>
     <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img contain height="300" src="@/assets/logo.svg" />
+      <v-img cover src="@/assets/logo.svg" />
 
       <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
 

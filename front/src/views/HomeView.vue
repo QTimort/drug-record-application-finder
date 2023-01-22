@@ -4,10 +4,10 @@
     <v-responsive class="d-flex align-center text-center fill-height">
       <v-row class="d-flex align-center justify-center">
         <v-col>
-          <v-text-field label="FDA Manufacturer Name"></v-text-field>
+          <v-text-field label="FDA Manufacturer Name" />
         </v-col>
         <v-col>
-          <v-text-field label="FDA Brand Name"></v-text-field>
+          <v-text-field label="FDA Brand Name" />
         </v-col>
       </v-row>
       <v-row class="d-flex align-center justify-center">
@@ -38,12 +38,19 @@
 <script lang="ts" setup>
 const drugs = genDummyData(100);
 
+/**
+ *
+ */
 function genDummyData(count: number) {
-  return Array.apply(null, new Array(count)).map((ignored, idx) => ({
-    id: idx,
-    manufacturerName: `Manufacturer ${idx}`,
-    fdaBrandName: `FDA Name ${idx}`,
-    product: `Product ${idx}`,
-  }));
+  const ar = new Array(count);
+  for (let i = 0; i < count; ++i) {
+    ar[i] = {
+      id: i,
+      manufacturerName: `Manufacturer ${i}`,
+      fdaBrandName: `FDA Name ${i}`,
+      product: `Product ${i}`,
+    };
+  }
+  return ar;
 }
 </script>

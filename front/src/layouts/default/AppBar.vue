@@ -4,7 +4,7 @@
       <v-icon icon="mdi-pill" />
       {{ title }}
     </v-app-bar-title>
-    <theme-switcher></theme-switcher>
+    <theme-switcher />
   </v-app-bar>
 </template>
 
