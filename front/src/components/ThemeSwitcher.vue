@@ -1,6 +1,7 @@
 <template>
   <v-switch
     :model-value="theme.global.current.value.dark"
+    style="display: flex"
     hint="This toggles the application theme"
     inset
     label="Application Dark mode"
