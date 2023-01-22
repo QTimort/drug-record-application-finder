@@ -4,7 +4,8 @@
     style="display: flex"
     hint="This toggles the application theme"
     inset
-    label="Application Dark mode"
+    id="theme-switch"
+    label="Dark mode"
     persistent-hint
     @click="toggleTheme"
   />
