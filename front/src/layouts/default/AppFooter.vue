@@ -14,5 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-const copyright = import.meta.env.VITE_APP_COPYRIGHT || 'Application Copyright';
+import {getEnvOrDefault} from "@/config/env";
+
+const copyright = getEnvOrDefault().VITE_APP_COPYRIGHT;
 </script>

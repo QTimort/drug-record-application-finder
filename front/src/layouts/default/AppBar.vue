@@ -10,5 +10,6 @@
 
 <script lang="ts" setup>
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue';
-const title = import.meta.env.VITE_APP_TITLE || 'Application Name';
+import {getEnvOrDefault} from "@/config/env";
+const title = getEnvOrDefault().VITE_APP_TITLE;
 </script>

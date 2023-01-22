@@ -4,7 +4,8 @@
 
 <script lang="ts" setup>
 import { useTheme } from 'vuetify';
+import {getEnvOrDefault} from "@/config/env";
 
 const theme = useTheme();
-theme.global.name.value = import.meta.env.VITE_APP_DEFAULT_THEME || 'light';
+theme.global.name.value = getEnvOrDefault().VITE_APP_DEFAULT_THEME;
 </script>
