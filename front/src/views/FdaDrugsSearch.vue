@@ -4,13 +4,25 @@
     <v-responsive class="d-flex align-center text-center fill-height">
       <v-row class="d-flex align-center justify-center">
         <v-col>
-          <v-text-field :disabled="loading" v-model="manufacturerName" label="FDA Manufacturer Name" placeholder="Hospira, Inc." />
+          <v-text-field
+            id="manufacturer-input"
+            :disabled="loading"
+            v-model="manufacturerName"
+            label="FDA Manufacturer Name"
+            placeholder="Hospira, Inc."
+          />
         </v-col>
         <v-col>
-          <v-text-field :disabled="loading" v-model="brandName" label="FDA Brand Name (Optional)" placeholder="Heparin Sodium" />
+          <v-text-field
+            id="brand-input"
+            :disabled="loading"
+            v-model="brandName"
+            label="FDA Brand Name (Optional)"
+            placeholder="Heparin Sodium"
+          />
         </v-col>
         <v-col style="display: flex;">
-          <v-btn :loading="loading" :disabled="searchDisabled()" @click="search" color="indigo" >
+          <v-btn id="search-btn" :loading="loading" :disabled="searchDisabled()" @click="search" color="indigo" >
             Search
           </v-btn>
         </v-col>
@@ -41,7 +53,9 @@
           </v-table>
         </v-container>
       </v-row>
-      <p>{{results?.meta?.results?.total || 0}} result(s)</p>
+      <p id="result-count">
+        {{results?.meta?.results?.total || 0}} result(s)
+      </p>
     </v-responsive>
   </v-container>
 </template>
