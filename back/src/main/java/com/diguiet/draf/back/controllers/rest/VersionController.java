@@ -4,6 +4,7 @@ import com.diguiet.draf.back.properties.GitInfos;
 import com.diguiet.draf.common.models.BackVersion;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,8 @@ public class VersionController {
         this.gitInfos = gitInfos;
     }
 
-    @GetMapping("version")
+    @CrossOrigin
+    @GetMapping("/version")
     public BackVersion getVersion() {
         return this.gitInfos.getBackVersion();
     }
