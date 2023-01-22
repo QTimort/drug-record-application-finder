@@ -47,7 +47,9 @@
             <tr v v-for="result in (results?.results || [])" :key="result?.application_number">
               <td class="text-left">{{ result?.openfda?.manufacturer_name?.[0] || '?' }}</td>
               <td class="text-left">{{ result?.openfda?.brand_name?.[0] || '?' }}</td>
-              <td class="text-left">{{ result?.products.map(p => p.brand_name).join(', ') || '?' }}</td>
+              <td class="text-left">
+                {{ result?.products.map(p => p.brand_name + ` (#${p.product_number})`).join(', ') || '?' }}
+              </td>
             </tr>
             </tbody>
           </v-table>
