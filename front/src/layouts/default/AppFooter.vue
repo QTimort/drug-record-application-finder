@@ -6,17 +6,17 @@
       </div>
       <v-divider></v-divider>
       <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
-        <strong>{{serverVersion}}</strong>
+        <strong>{{ serverVersion }}</strong>
       </v-col>
     </v-row>
   </v-footer>
 </template>
 
 <script lang="ts" setup>
-import {getEnvOrDefault} from "@/config/env";
-import {useAppStore} from "@/stores/app";
-import {storeToRefs} from "pinia";
+import { getEnvOrDefault } from '@/config/env';
+import { useAppStore } from '@/stores/app';
+import { storeToRefs } from 'pinia';
 
-const { serverVersion} = storeToRefs(useAppStore());
+const { serverVersion } = storeToRefs(useAppStore());
 const copyright = getEnvOrDefault().VITE_APP_COPYRIGHT;
 </script>

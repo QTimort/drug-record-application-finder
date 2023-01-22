@@ -1,5 +1,8 @@
-import type {_GettersTree, StateTree, StoreDefinition} from "pinia";
+import type { _GettersTree, StateTree, StoreDefinition } from 'pinia';
 
+/**
+ *
+ */
 export function defineInitializableStore<
   Id extends string,
   S extends StateTree = {},
@@ -13,4 +16,3 @@ export function defineInitializableStore<
   initializer(store);
   return (() => store) as any;
 }
-

@@ -1,6 +1,6 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router';
-import {getEnvOrDefault} from "@/config/env";
+import { getEnvOrDefault } from '@/config/env';
 
 const routes = [
   {

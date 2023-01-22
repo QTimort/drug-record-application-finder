@@ -1,8 +1,8 @@
 // Utilities
-import {defineStore} from 'pinia';
-import {getVersion} from "@/api/v1/version";
-import {getEnvOrDefault} from "@/config/env";
-import {defineInitializableStore} from "@/stores/defineInitializableStore";
+import { defineStore } from 'pinia';
+import { getVersion } from '@/api/v1/version';
+import { getEnvOrDefault } from '@/config/env';
+import { defineInitializableStore } from '@/stores/defineInitializableStore';
 
 export interface AppState {
   apiEndpoint: string;
@@ -17,26 +17,24 @@ export const useAppStore = defineInitializableStore(
       return {
         apiEndpoint: getEnvOrDefault().VITE_APP_SERVER_URL,
         serverVersion: null,
-      }
+      };
     },
     actions: {
       async setApiEndpoint(apiEndpoint: string): Promise<AsyncError> {
         // todo validate url
         this.apiEndpoint = apiEndpoint;
         try {
-          this.serverVersion = await getVersion(this.apiEndpoint) as string;
+          this.serverVersion = (await getVersion(this.apiEndpoint)) as string;
           return {};
         } catch (e: unknown) {
           return {
-            error: e
+            error: e,
           };
         }
-      }
-    }
+      },
+    },
   }),
-  (store) => {
+  store => {
     store.setApiEndpoint(store.apiEndpoint);
   }
-)
-
-
+);
