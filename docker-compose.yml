@@ -1,0 +1,37 @@
+services:
+  build_serve_backend:
+    image: maven:3.8.7-eclipse-temurin-17
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/draf
+    entrypoint:
+      [
+        "/bin/sh",
+        "-c",
+        "mvn install -DskipTests \"-Dskip.front.test=true\" -f /draf/pom.xml && mvn spring-boot:run -f /draf/back/pom.xml"
+      ]
+    healthcheck:
+      test: curl --fail http://localhost:8080/api/v1/version || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 60s
+      timeout: 5s
+
+  frontend:
+    image: node:16.19.0-alpine3.17
+    depends_on:
+      build_serve_backend:
+        condition: service_healthy
+    ports:
+      - "4284:4284"
+    volumes:
+      - ./front/:/front
+    env_file: ./front/.env
+    entrypoint: "npm run --prefix /front preview"
+    healthcheck:
+      test: curl --fail http://localhost:4284 || exit 1
+      interval: 60s
+      retries: 2
+      start_period: 60s
+      timeout: 5s
