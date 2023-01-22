@@ -110,6 +110,12 @@
                             <skip>${skip.front.test}</skip>
                         </configuration>
                     </execution>
+                  <execution>
+                    <id>npm-run-preview</id>
+                    <configuration>
+                      <arguments>run preview</arguments>
+                    </configuration>
+                  </execution>
                 </executions>
             </plugin>
         </plugins>
