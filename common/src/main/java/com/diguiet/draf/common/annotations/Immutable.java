@@ -1,4 +1,4 @@
-package com.diguiet.draf.back.common.annotations;
+package com.diguiet.draf.common.annotations;
 
 import java.lang.annotation.*;
 

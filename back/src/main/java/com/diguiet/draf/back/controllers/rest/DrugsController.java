@@ -1,6 +1,6 @@
 package com.diguiet.draf.back.controllers.rest;
 
-import com.diguiet.draf.back.common.models.Drug;
+import com.diguiet.draf.common.models.Drug;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
