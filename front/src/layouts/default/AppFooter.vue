@@ -6,7 +6,7 @@
       </div>
       <v-divider />
       <v-col class="bg-primary-lighten-2 py-4 text-center text-white" cols="12">
-        <strong>{{ serverVersion }}</strong>
+        <span> Server build version — {{ serverVersion?.buildVersion || '?' }}</span>
       </v-col>
     </v-row>
   </v-footer>
