@@ -37,19 +37,20 @@ public class DrugsControllerTest {
 
     @Test
     public void manufacturerDrugsShouldContainResult() throws Exception {
-        this.mockMvc
-                .perform(get("/drugs/manufacturers/WATSON%20LABS"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").hasJsonPath());
+        testDrugsEndpoint("/drugs/manufacturers/Hospira,%20Inc./");
     }
 
     @Test
     public void manufacturerBrandDrugsShouldContainResult() throws Exception {
+        testDrugsEndpoint("/drugs/manufacturers/Hospira,%20Inc./brands/HEPARIN%20SODIUM");
+    }
+
+    private void testDrugsEndpoint(String urlTemplate) throws Exception {
         this.mockMvc
-                .perform(get("/drugs/manufacturers/WATSON%20LABS/brands/NORETHINDRONE%20AND%20ETHINYL%20ESTRADIOL"))
+                .perform(get(urlTemplate))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").hasJsonPath());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.meta.results.total").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.results.products[0].brand_name").exists());
     }
 }
