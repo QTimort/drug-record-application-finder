@@ -2,18 +2,18 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import vuetify from '@/plugins/vuetify';
 
-import HelloWorld from '../HelloWorld.vue';
+import ThemeSwitcher from "../ThemeSwitcher.vue";
 
-describe('HelloWorld.ts', () => {
+describe('ThemeSwitcher.vue', () => {
   it('mount component', async () => {
-    expect(HelloWorld).toBeTruthy();
+    expect(ThemeSwitcher).toBeTruthy();
 
-    const wrapper = mount(HelloWorld as any, {
+    const wrapper = mount(ThemeSwitcher, {
       global: {
         plugins: [vuetify],
       },
     });
 
-    expect(wrapper.text()).toContain('Welcome to');
+    expect(wrapper.text()).toContain('Dark mode');
   });
 });
