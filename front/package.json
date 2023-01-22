@@ -25,9 +25,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
-    "lint:prettier": "prettier . -w -u",
-    "lint:eslint": "eslint . --fix --cache --cache-location ./node_modules/.vite/vite-plugin-eslint --max-warnings=0",
-    "lint:stylelint": "stylelint \"./**/*.{css,sass,scss,htm,html,vue}\" --fix --cache-location ./node_modules/.vite/vite-plugin-stylelint"
+    "lint:prettier": "prettier \"./**/*.{css,sass,scss,htm,html,vue,ts,js,cjs,cts}\" -w -u",
+    "lint:eslint": "eslint \"./**/*.{css,sass,scss,htm,html,vue,ts,js,cjs,cts}\" --fix --cache --cache-location ./node_modules/.vite/vite-plugin-eslint --max-warnings=0",
+    "lint:stylelint": "stylelint \"./**/*.{css,sass,scss,htm,html,vue,ts,js,cjs,cts}\" --fix --cache-location ./node_modules/.vite/vite-plugin-stylelint"
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
