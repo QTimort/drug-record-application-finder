@@ -2,22 +2,22 @@
 
 ## Setup
 
-Clone the project
-```
-https://github.com/QTimort/drug-record-application-finder.git
-```
+1. Clone the project
+   ```
+   https://github.com/QTimort/drug-record-application-finder.git
+   ```
 
-### Docker Compose
+2. Copy `./font/.env.example` to `./font/.env`
+
+### Docker Compose setup
 To install Docker Compose follow the instructions at https://docs.docker.com/compose/install/
 
-1. Copy `./font/.env.example` to `./font/.env`
-
-2. Open a terminal and run the command below
+1. Open a terminal and run the command below
    ```shell
    docker-compose up
    ```
 
-3. Wait a few moment for the service to build and start.
+2. Wait a few moment for the service to build and start.
 
 ### Regular setup
 
