@@ -2,18 +2,51 @@
 
 ## Setup
 
-### Docker Compose
+Clone the project
+```
+https://github.com/QTimort/drug-record-application-finder.git
+```
 
+### Docker Compose
+To install Docker Compose follow the instructions at https://docs.docker.com/compose/install/
 
 1. Copy `./font/.env.example` to `./font/.env`
 
-2.
-```shell
-docker-compose up
-```
+2. Open a terminal and run the command below
+   ```shell
+   docker-compose up
+   ```
 
-3. Wait a few minutes for the service to build and start.
+3. Wait a few moment for the service to build and start.
 
-4. You are all set! 
-   - The application should be available at http://localhost:4284/
-   - The backend is served at http://localhost:8080/
+### Regular setup
+
+1. Java SDK 17 and Maven 3 or above must be installed. 
+   - To install Java 17 go to https://adoptium.net/temurin/releases/?version=17.
+   - To install Maven 3 go to https://maven.apache.org/download.cgi 
+
+2. Open a terminal and run the following command to create a clean build:
+   - Without Test
+   ```shell
+      mvn clean install -DskipTests \"-Dskip.front.test=true\"
+   ```
+   - Or with Test
+   ```shell
+      mvn clean install
+   ```
+
+3. Start the back-end:
+   ```shell
+      mvn spring-boot:run -f ./back/pom.xml"
+   ```
+
+4. Start the front-end:
+   ```shell
+      mvn frontend:npm@npm-run-preview -pl front
+   ```
+
+## Usage
+Once you are all set:
+- The application should be available at http://localhost:4284/
+- The backend is served at http://localhost:8080/
+- API documentation is available at http://localhost:8080/api/v1/swagger-ui/index.html
