@@ -21,7 +21,18 @@
 	</properties>
 
 	<modules>
+		<module>common</module>
 		<module>back</module>
 		<module>front</module>
 	</modules>
+
+	<dependencies>
+		<!-- Replace boilerplate code with annotations -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 </project>

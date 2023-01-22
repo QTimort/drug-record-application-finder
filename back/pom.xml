@@ -17,19 +17,18 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.diguiet.draf</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- Spring boot WEB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring.boot.version}</version>
-        </dependency>
-
-        <!-- Replace boilerplate code with annotations -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <optional>true</optional>
         </dependency>
 
         <!-- Spring boot test -->
