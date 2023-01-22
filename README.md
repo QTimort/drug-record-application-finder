@@ -28,7 +28,7 @@ To install Docker Compose follow the instructions at https://docs.docker.com/com
 2. Open a terminal and run the following command to create a clean build:
    - Without Test
    ```shell
-      mvn clean install -DskipTests \"-Dskip.front.test=true\"
+      mvn clean install -DskipTests "-Dskip.front.test=true"
    ```
    - Or with Test
    ```shell
