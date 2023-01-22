@@ -1,6 +1,6 @@
-package com.diguiet.draf.common.models;
+package com.diguiet.draf.back.common.models;
 
-import com.diguiet.draf.common.annotations.Immutable;
+import com.diguiet.draf.back.common.annotations.Immutable;
 import lombok.Builder;
 
 @Builder
