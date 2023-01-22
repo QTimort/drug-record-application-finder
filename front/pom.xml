@@ -19,6 +19,14 @@
         <skip.front.test>false</skip.front.test>
     </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.diguiet.draf</groupId>
+      <artifactId>common</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+  </dependencies>
+
     <build>
         <plugins>
             <!-- Extract Git infos to a JSON file -->
@@ -118,6 +126,38 @@
                   </execution>
                 </executions>
             </plugin>
+
+          <plugin>
+            <groupId>cz.habarta.typescript-generator</groupId>
+            <artifactId>typescript-generator-maven-plugin</artifactId>
+            <version>3.1.1185</version>
+            <dependencies>
+              <dependency>
+                <groupId>com.diguiet.draf</groupId>
+                <artifactId>common</artifactId>
+                <version>0.0.1</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <id>generate</id>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <phase>generate-resources</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <jsonLibrary>jackson2</jsonLibrary>
+              <classPatterns>
+                com.diguiet.draf.common.models.**
+              </classPatterns>
+
+              <outputKind>module</outputKind>
+              <outputFileType>declarationFile</outputFileType>
+              <outputFile>./src/types/drafModels.d.ts</outputFile>
+            </configuration>
+          </plugin>
         </plugins>
     </build>
 </project>
