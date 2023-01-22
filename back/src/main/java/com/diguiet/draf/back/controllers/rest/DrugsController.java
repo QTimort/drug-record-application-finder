@@ -3,6 +3,8 @@ package com.diguiet.draf.back.controllers.rest;
 import com.diguiet.draf.back.services.FDADrugService;
 import com.diguiet.draf.common.models.fda.DrugsFdaResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,6 +28,14 @@ public class DrugsController {
     }
 
     @Operation(summary = "Get Manufacturer Drugs")
+    @Parameters(value = {
+            @Parameter(
+                    name = "manufacturer",
+                    example = "Hospira, Inc.",
+                    description = "The Manufacturer to query",
+                    schema = @Schema(implementation = String.class)
+            )
+    })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get the drugs related to a manufacturer",
                     content = { @Content(mediaType = "application/json",
@@ -40,6 +50,20 @@ public class DrugsController {
     }
 
     @Operation(summary = "Get Manufacturer Brand Drugs")
+    @Parameters(value = {
+            @Parameter(
+                    name = "manufacturer",
+                    example = "Hospira, Inc.",
+                    description = "The Manufacturer to query",
+                    schema = @Schema(implementation = String.class)
+            ),
+            @Parameter(
+                    name = "brand",
+                    example = "HEPARIN SODIUM",
+                    description = "The brand to query",
+                    schema = @Schema(implementation = String.class)
+            )
+    })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get the drugs related to a manufacturer and brand",
                     content = { @Content(mediaType = "application/json",
