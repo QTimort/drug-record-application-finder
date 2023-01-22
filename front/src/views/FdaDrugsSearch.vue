@@ -41,7 +41,7 @@
           </v-table>
         </v-container>
       </v-row>
-      <p>{{results?.meta?.results?.total || 0}} results</p>
+      <p>{{results?.meta?.results?.total || 0}} result(s)</p>
     </v-responsive>
   </v-container>
 </template>
@@ -75,8 +75,8 @@ function search() {
       loading.value = false;
       error.value = false;
     }).catch(ignored => {
-    loading.value = false;
-    error.value = true;
+      loading.value = false;
+      error.value = true;
   })
 }
 </script>
