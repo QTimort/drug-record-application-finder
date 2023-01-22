@@ -13,10 +13,10 @@ import org.springframework.core.env.Environment;
 @Getter
 @Immutable
 @PropertySource("classpath:git.properties")
-public class GitProperties {
+public class GitInfos {
     private final BackVersion backVersion;
 
-    public GitProperties(@Autowired @NonNull final Environment environment) {
+    public GitInfos(@Autowired @NonNull final Environment environment) {
         this.backVersion = BackVersion
                 .builder()
                 .branch(environment.getProperty("git.branch"))

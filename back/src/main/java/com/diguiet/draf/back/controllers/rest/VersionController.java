@@ -1,6 +1,6 @@
 package com.diguiet.draf.back.controllers.rest;
 
-import com.diguiet.draf.back.properties.GitProperties;
+import com.diguiet.draf.back.properties.GitInfos;
 import com.diguiet.draf.common.models.BackVersion;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VersionController {
 
-    private final GitProperties gitProperties;
+    private final GitInfos gitInfos;
 
-    public VersionController(@Autowired @NonNull final GitProperties gitProperties) {
-        this.gitProperties = gitProperties;
+    public VersionController(@Autowired @NonNull final GitInfos gitInfos) {
+        this.gitInfos = gitInfos;
     }
 
     @GetMapping("version")
     public BackVersion getVersion() {
-        return this.gitProperties.getBackVersion();
+        return this.gitInfos.getBackVersion();
     }
 }
