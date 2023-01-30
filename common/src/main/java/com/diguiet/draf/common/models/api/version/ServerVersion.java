@@ -1,4 +1,4 @@
-package com.diguiet.draf.common.models.version;
+package com.diguiet.draf.common.models.api.version;
 
 import com.diguiet.draf.common.annotations.Immutable;
 import lombok.Builder;

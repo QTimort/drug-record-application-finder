@@ -1,7 +1,8 @@
 package com.diguiet.draf.back.controllers.rest;
 
+import com.diguiet.draf.back.exceptions.InvalidParameterException;
 import com.diguiet.draf.back.services.fda.FDAQueryService;
-import com.diguiet.draf.common.models.fda.DrugsFdaResponse;
+import com.diguiet.draf.common.models.api.fda.DrugsFdaResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -11,12 +12,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-
-import java.util.function.Supplier;
 
 @RestController
 @RequestMapping("/drugs/")
@@ -48,7 +47,8 @@ public class DrugsController {
             @PathVariable @NonNull final String manufacturer,
             @RequestParam(required = true, defaultValue = "1") final int page
     ) {
-        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturer(manufacturer, page));
+        validateParameters(manufacturer, null, page);
+        return this.fdaQueryService.getByManufacturer(manufacturer, page);
     }
 
     @Operation(summary = "Get Manufacturer Brand Drugs")
@@ -78,15 +78,23 @@ public class DrugsController {
             @PathVariable @NonNull final String brand,
             @RequestParam(required = true, defaultValue = "1") @Nullable final int page
     ) {
-        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturerBrand(manufacturer, brand, page));
+        validateParameters(manufacturer, brand, page);
+        return this.fdaQueryService.getByManufacturerBrand(manufacturer, brand, page);
     }
 
-    private static DrugsFdaResponse handleNotFoundException(@NonNull final Supplier<DrugsFdaResponse> supplier) {
-        try {
-            return supplier.get();
-        } catch (HttpClientErrorException.NotFound e) {
-            log.debug("DrugsFdaResponse supplier raised Not Found exception", e);
-            return new DrugsFdaResponse();
+    private static void validateParameters(
+            final @NotNull String manufacturer,
+            final @Nullable String brand,
+            final int page
+    ) {
+        if (manufacturer.length() < 2) {
+            throw new InvalidParameterException("Manufacturer name must contain at least 2 characters");
+        }
+        if (brand != null && brand.length() < 2) {
+            throw new InvalidParameterException("Brand name must contain at least 2 characters");
+        }
+        if (page < 1) {
+            throw new InvalidParameterException("Page must be a positive a number");
         }
     }
 }

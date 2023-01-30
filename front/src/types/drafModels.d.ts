@@ -2,6 +2,10 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.1.1185 on 2023-01-22 20:28:52.
 
+export interface ApiError {
+  error: string;
+}
+
 export interface ActiveIngredient {
   name: string;
   strength: string;

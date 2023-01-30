@@ -1,6 +1,6 @@
 package com.diguiet.draf.back.controllers.rest;
 
-import com.diguiet.draf.common.models.version.ServerVersion;
+import com.diguiet.draf.common.models.api.version.ServerVersion;
 import com.diguiet.draf.back.properties.GitInfos;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -21,10 +21,10 @@
             placeholder="Heparin Sodium"
           />
         </v-col>
-        <v-col >
+        <v-col>
           <v-btn
-            :class="$vuetify.display.smAndDown ? 'w-100' : 'float-left'"
             id="search-btn"
+            :class="$vuetify.display.smAndDown ? 'w-100' : 'float-left'"
             :loading="query.loading"
             :disabled="searchDisabled"
             color="indigo"
@@ -35,9 +35,8 @@
         </v-col>
       </v-row>
       <v-container>
-        <v-alert v-if="query.error" type="error">
-          An error occurred while fetching the data. Please check your
-          connection with the server and your research parameters.
+        <v-alert v-if="query.error !== null" type="error">
+          {{ query.error?.error }}
         </v-alert>
       </v-container>
       <v-row class="d-flex align-center justify-center">

@@ -1,4 +1,4 @@
-package com.diguiet.draf.common.models.fda;
+package com.diguiet.draf.common.models.api.fda;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
 package com.diguiet.draf.back.properties;
 
 import com.diguiet.draf.common.annotations.Immutable;
-import com.diguiet.draf.common.models.version.ServerVersion;
+import com.diguiet.draf.common.models.api.version.ServerVersion;
 import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

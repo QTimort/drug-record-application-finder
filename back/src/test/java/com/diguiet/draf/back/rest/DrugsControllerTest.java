@@ -2,8 +2,8 @@ package com.diguiet.draf.back.rest;
 
 
 import com.diguiet.draf.back.controllers.rest.DrugsController;
-import com.diguiet.draf.common.models.fda.DrugsFdaResponse;
-import com.diguiet.draf.common.models.fda.Result;
+import com.diguiet.draf.common.models.api.fda.DrugsFdaResponse;
+import com.diguiet.draf.common.models.api.fda.Result;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import org.junit.jupiter.api.Assertions;

@@ -1,6 +1,6 @@
 // Utilities
 import { defineStore } from 'pinia';
-import type { DrugsFdaResponse } from '@/types/drafModels';
+import type { ApiError, DrugsFdaResponse } from '@/types/drafModels';
 import {
   getDrugsManufacturer,
   getDrugsManufacturerBrand,
@@ -15,7 +15,7 @@ export interface FdaDrugSearchState {
   };
   query: {
     loading: boolean;
-    error: boolean;
+    error: ApiError | null;
     results: DrugsFdaResponse | null;
   };
 }
@@ -30,21 +30,29 @@ export const useFdaDrugSearchStore = defineStore('fdaDrugResearch', {
       },
       query: {
         loading: false,
-        error: false,
+        error: null,
         results: null,
       },
     };
   },
   getters: {
     numberOfPages: state => {
-      if (state.query.loading || state.query.error || !state.query.results) {
+      if (
+        state.query.loading ||
+        state.query.error ||
+        !state.query.results?.meta?.results
+      ) {
         return null;
       }
       const { total, limit } = state.query.results.meta.results;
       return Math.ceil(total / limit);
     },
     resultsDisplayed: state => {
-      if (state.query.loading || state.query.error || !state.query.results) {
+      if (
+        state.query.loading ||
+        state.query.error ||
+        !state.query.results?.meta?.results
+      ) {
         return null;
       }
       const { total, limit, skip } = state.query.results.meta.results;
@@ -59,7 +67,7 @@ export const useFdaDrugSearchStore = defineStore('fdaDrugResearch', {
       this.parameters.page = pageToSearch;
       this.query = {
         loading: true,
-        error: false,
+        error: null,
         results: null,
       };
       (this.parameters.brandName.length === 0
@@ -78,14 +86,14 @@ export const useFdaDrugSearchStore = defineStore('fdaDrugResearch', {
         .then(response => {
           this.query = {
             loading: false,
-            error: false,
+            error: null,
             results: response,
           };
         })
-        .catch(ignored => {
+        .catch(error => {
           this.query = {
             loading: false,
-            error: true,
+            error: { error: error?.body?.error || 'An unknown error occurred' },
             results: null,
           };
         });
