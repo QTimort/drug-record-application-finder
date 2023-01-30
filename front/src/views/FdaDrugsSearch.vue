@@ -61,12 +61,25 @@
                   {{ result?.openfda?.brand_name?.[0] || '?' }}
                 </td>
                 <td class="text-left">
-                    <span v-for="(ndc, index) in result?.openfda?.product_ndc || []">
-                      <a :href="'https://ndclist.com/ndc/' + ndc"  target="_blank" rel="noopener noreferrer">
-                        {{ndc}}
-                      </a>
-                      <span v-if="index + 1 < (result?.openfda?.product_ndc?.length || 0)">, </span>
+                  <span
+                    v-for="(ndc, index) in result?.openfda?.product_ndc || []"
+                    :key="index"
+                  >
+                    <a
+                      :href="'https://ndclist.com/ndc/' + ndc"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {{ ndc }}
+                    </a>
+                    <span
+                      v-if="
+                        index + 1 < (result?.openfda?.product_ndc?.length || 0)
+                      "
+                    >
+                      ,
                     </span>
+                  </span>
                 </td>
               </tr>
             </tbody>
