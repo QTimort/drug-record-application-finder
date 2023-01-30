@@ -27,7 +27,7 @@
             :loading="query.loading"
             :disabled="searchDisabled"
             color="indigo"
-            @click="search()"
+            @click="store.search()"
           >
             Search
           </v-btn>
@@ -53,7 +53,6 @@
               <tr
                 v-for="result in query.results?.results || []"
                 :key="result?.application_number"
-                v
               >
                 <td class="text-left">
                   {{ result?.openfda?.manufacturer_name?.[0] || '?' }}
@@ -75,7 +74,7 @@
           :length="numberOfPages"
           :disabled="query.loading"
           :total-visible="7"
-          @update:modelValue="search"
+          @update:model-value="store.search"
         />
       </div>
       <p v-if="query.results?.meta?.results" id="result-count">
@@ -92,5 +91,4 @@ import { useFdaDrugSearchStore } from '@/stores/fdaDrugSearch';
 
 const store = useFdaDrugSearchStore();
 const { query, parameters, searchDisabled, numberOfPages } = storeToRefs(store);
-const { search } = store;
 </script>
