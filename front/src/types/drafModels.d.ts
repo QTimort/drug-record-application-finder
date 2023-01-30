@@ -71,7 +71,7 @@ export interface Submission {
     review_priority: string;
 }
 
-export interface BackVersion {
+export interface ServerVersion {
     branch: string;
     buildHost: string;
     buildVersion: string;
@@ -81,5 +81,5 @@ export interface BackVersion {
     dirty: string;
 }
 
-export interface BackVersionBuilder {
+export interface ServerVersionBuilder {
 }

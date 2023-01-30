@@ -1,10 +1,10 @@
 import { mande } from 'mande';
-import type {BackVersion} from "@/types/drafModels";
+import type {ServerVersion} from "@/types/drafModels";
 
 /**
  *
  */
-export function getVersion(url: string): Promise<BackVersion> {
+export function getVersion(url: string): Promise<ServerVersion> {
   const version = mande(url);
-  return version.get<BackVersion>('/api/v1/version');
+  return version.get<ServerVersion>('/api/v1/version');
 }

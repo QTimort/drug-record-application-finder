@@ -47,7 +47,7 @@ public class VersionControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.buildVersion",
-                        StringContains.containsString(this.gitInfos.getBackVersion().buildVersion())
+                        StringContains.containsString(this.gitInfos.getServerVersion().buildVersion())
                 ));
     }
 }

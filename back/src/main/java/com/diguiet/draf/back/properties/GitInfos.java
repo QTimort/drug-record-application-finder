@@ -1,7 +1,7 @@
 package com.diguiet.draf.back.properties;
 
 import com.diguiet.draf.common.annotations.Immutable;
-import com.diguiet.draf.common.models.version.BackVersion;
+import com.diguiet.draf.common.models.version.ServerVersion;
 import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ import org.springframework.core.env.Environment;
 @Immutable
 @PropertySource("classpath:git.properties")
 public class GitInfos {
-    private final BackVersion backVersion;
+    private final ServerVersion serverVersion;
 
     public GitInfos(@Autowired @NonNull final Environment environment) {
-        this.backVersion = BackVersion
+        this.serverVersion = ServerVersion
                 .builder()
                 .branch(environment.getProperty("git.branch"))
                 .buildHost(environment.getProperty("git.build.host"))

@@ -5,7 +5,7 @@ import lombok.Builder;
 
 @Builder
 @Immutable
-public record BackVersion(
+public record ServerVersion(
         String branch,
         String buildHost,
         String buildVersion,

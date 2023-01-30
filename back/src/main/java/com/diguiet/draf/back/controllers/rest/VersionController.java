@@ -1,6 +1,6 @@
 package com.diguiet.draf.back.controllers.rest;
 
-import com.diguiet.draf.common.models.version.BackVersion;
+import com.diguiet.draf.common.models.version.ServerVersion;
 import com.diguiet.draf.back.properties.GitInfos;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,11 +26,11 @@ public class VersionController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Get the  server version",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = BackVersion.class)) }),
+                            schema = @Schema(implementation = ServerVersion.class)) }),
     })
     @CrossOrigin
     @GetMapping("/version")
-    public BackVersion getVersion() {
-        return this.gitInfos.getBackVersion();
+    public ServerVersion getVersion() {
+        return this.gitInfos.getServerVersion();
     }
 }

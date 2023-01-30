@@ -17,7 +17,7 @@ public class GitInfosTest {
 
     @Test
     void testGitInfosPresent() {
-        Assertions.assertNotNull(this.gitInfos.getBackVersion());
-        Assertions.assertNotNull(this.gitInfos.getBackVersion().buildVersion());
+        Assertions.assertNotNull(this.gitInfos.getServerVersion());
+        Assertions.assertNotNull(this.gitInfos.getServerVersion().buildVersion());
     }
 }
