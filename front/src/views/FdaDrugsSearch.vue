@@ -48,7 +48,7 @@
               <td class="text-left">{{ result?.openfda?.manufacturer_name?.[0] || '?' }}</td>
               <td class="text-left">{{ result?.openfda?.brand_name?.[0] || '?' }}</td>
               <td class="text-left">
-                {{ result?.products.map(p => p.brand_name + ` (#${p.product_number})`).join(', ') || '?' }}
+                {{ result?.openfda?.product_ndc?.join?.(', ') || '?' }}
               </td>
             </tr>
             </tbody>
