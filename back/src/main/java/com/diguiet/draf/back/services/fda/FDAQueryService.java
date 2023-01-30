@@ -29,10 +29,12 @@ public class FDAQueryService {
     }
 
     public DrugsFdaResponse getByManufacturer(
-            @NonNull final String manufacturer
+            @NonNull final String manufacturer,
+            final int page
     ) {
         final URI queryUrl = this.newSearchQueryBuilder()
                 .setManufacturerName(manufacturer, false)
+                .withPage(page)
                 .build()
                 .uri();
 
@@ -44,11 +46,13 @@ public class FDAQueryService {
 
     public DrugsFdaResponse getByManufacturerBrand(
             @NonNull final String manufacturer,
-            @NonNull final String brand
+            @NonNull final String brand,
+            final int page
     ) {
         final URI queryUrl = this.newSearchQueryBuilder()
                 .setManufacturerName(manufacturer, false)
                 .setBrandNameName(brand, true)
+                .withPage(page)
                 .build()
                 .uri();
 
@@ -75,7 +79,7 @@ public class FDAQueryService {
 
         private final Map<String, SearchField> searchFields = new HashMap<>();
         private int limit;
-        private int skip;
+        private int page;
 
 
         private record SearchField(
@@ -83,11 +87,11 @@ public class FDAQueryService {
                 boolean exact
         ) {}
 
-        public SearchQueryBuilder(HttpUrl.Builder urlBuilder, int maxLimit) {
+        public SearchQueryBuilder(@NonNull final HttpUrl.Builder urlBuilder, final int maxLimit) {
             this.urlBuilder = urlBuilder;
             this.maxLimit = maxLimit;
             this.limit = maxLimit;
-            this.skip = 0;
+            this.page = 1;
         }
 
         private SearchQueryBuilder() {
@@ -108,7 +112,7 @@ public class FDAQueryService {
                     Integer.toString(this.limit)
             ).setQueryParameter(
                     SearchQueryBuilder.SKIP_QUERY_PARAMETER_NAME,
-                    Integer.toString(this.skip)
+                    Integer.toString((this.page - 1) * this.limit)
             ).build();
         }
 
@@ -117,17 +121,17 @@ public class FDAQueryService {
                 throw new IllegalArgumentException("Provided Limit exceed max allowed limit of " + this.maxLimit);
             }
             if (limit < 0) {
-                throw new IllegalArgumentException("Provided Limit must be a positive integer");
+                throw new IllegalArgumentException("Provided Limit must be zero or a positive integer");
             }
             this.limit = limit;
             return this;
         }
 
-        public SearchQueryBuilder withSkip(final int skip) {
-            if (skip < 0) {
+        public SearchQueryBuilder withPage(final int page) {
+            if (page < 1) {
                 throw new IllegalArgumentException("Provided skip must be a positive integer");
             }
-            this.skip = skip;
+            this.page = page;
             return this;
         }
 

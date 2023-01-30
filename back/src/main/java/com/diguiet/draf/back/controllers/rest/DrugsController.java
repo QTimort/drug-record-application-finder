@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -44,9 +45,10 @@ public class DrugsController {
     @CrossOrigin
     @GetMapping("/manufacturers/{manufacturer}")
     public DrugsFdaResponse getManufacturerDrugs(
-            @PathVariable @NonNull final String manufacturer
+            @PathVariable @NonNull final String manufacturer,
+            @RequestParam(required = true, defaultValue = "1") final int page
     ) {
-        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturer(manufacturer));
+        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturer(manufacturer, page));
     }
 
     @Operation(summary = "Get Manufacturer Brand Drugs")
@@ -73,9 +75,10 @@ public class DrugsController {
     @GetMapping("/manufacturers/{manufacturer}/brands/{brand}")
     public DrugsFdaResponse getManufacturerBrandDrugs(
             @PathVariable @NonNull final String manufacturer,
-            @PathVariable @NonNull final String brand
+            @PathVariable @NonNull final String brand,
+            @RequestParam(required = true, defaultValue = "1") @Nullable final int page
     ) {
-        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturerBrand(manufacturer, brand));
+        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturerBrand(manufacturer, brand, page));
     }
 
     private static DrugsFdaResponse handleNotFoundException(@NonNull final Supplier<DrugsFdaResponse> supplier) {
