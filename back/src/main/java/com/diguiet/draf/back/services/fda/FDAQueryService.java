@@ -65,6 +65,7 @@ public class FDAQueryService {
     public class SearchQueryBuilder {
         private static final String SEARCH_QUERY_PARAMETER_NAME = "search";
         private static final String LIMIT_QUERY_PARAMETER_NAME = "limit";
+        private static final String SKIP_QUERY_PARAMETER_NAME = "skip";
         private static final String MANUFACTURER_NAME_FIELD = "openfda.manufacturer_name";
         private static final String BRAND_NAME_FIELD = "openfda.brand_name";
         private static final String EXACT_MATCH_SUFFIX = ".exact";
@@ -74,6 +75,7 @@ public class FDAQueryService {
 
         private final Map<String, SearchField> searchFields = new HashMap<>();
         private int limit;
+        private int skip;
 
 
         private record SearchField(
@@ -85,6 +87,7 @@ public class FDAQueryService {
             this.urlBuilder = urlBuilder;
             this.maxLimit = maxLimit;
             this.limit = maxLimit;
+            this.skip = 0;
         }
 
         private SearchQueryBuilder() {
@@ -103,6 +106,9 @@ public class FDAQueryService {
             ).setQueryParameter(
                     SearchQueryBuilder.LIMIT_QUERY_PARAMETER_NAME,
                     Integer.toString(this.limit)
+            ).setQueryParameter(
+                    SearchQueryBuilder.SKIP_QUERY_PARAMETER_NAME,
+                    Integer.toString(this.skip)
             ).build();
         }
 
@@ -114,6 +120,14 @@ public class FDAQueryService {
                 throw new IllegalArgumentException("Provided Limit must be a positive integer");
             }
             this.limit = limit;
+            return this;
+        }
+
+        public SearchQueryBuilder withSkip(final int skip) {
+            if (skip < 0) {
+                throw new IllegalArgumentException("Provided skip must be a positive integer");
+            }
+            this.skip = skip;
             return this;
         }
 
