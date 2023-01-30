@@ -77,8 +77,9 @@
           @update:model-value="store.search"
         />
       </div>
-      <p v-if="resultsDisplayed" id="result-count">
-        Displaying {{ resultsDisplayed }} out of {{ query.results?.meta.results.total }} result(s)
+      <p v-if="resultsDisplayed !== null" id="result-count">
+        Displaying {{ resultsDisplayed }} out of
+        {{ query.results?.meta.results.total }} result(s)
       </p>
     </v-responsive>
   </v-container>
@@ -89,5 +90,6 @@ import { storeToRefs } from 'pinia';
 import { useFdaDrugSearchStore } from '@/stores/fdaDrugSearch';
 
 const store = useFdaDrugSearchStore();
-const { query, parameters, searchDisabled, numberOfPages, resultsDisplayed } = storeToRefs(store);
+const { query, parameters, searchDisabled, numberOfPages, resultsDisplayed } =
+  storeToRefs(store);
 </script>
