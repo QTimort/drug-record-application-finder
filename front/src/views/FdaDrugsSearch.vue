@@ -6,8 +6,8 @@
         <v-col>
           <v-text-field
             id="manufacturer-input"
-            :disabled="loading"
-            v-model="manufacturerName"
+            :disabled="query.loading"
+            v-model="parameters.manufacturerName"
             label="FDA Manufacturer Name"
             placeholder="Hospira, Inc."
           />
@@ -15,20 +15,20 @@
         <v-col>
           <v-text-field
             id="brand-input"
-            :disabled="loading"
-            v-model="brandName"
+            :disabled="query.loading"
+            v-model="parameters.brandName"
             label="FDA Brand Name (Optional)"
             placeholder="Heparin Sodium"
           />
         </v-col>
         <v-col style="display: flex;">
-          <v-btn id="search-btn" :loading="loading" :disabled="searchDisabled()" @click="search" color="indigo" >
+          <v-btn id="search-btn" :loading="query.loading" :disabled="searchDisabled" @click="search()" color="indigo" >
             Search
           </v-btn>
         </v-col>
       </v-row>
       <v-container>
-        <v-alert v-if="error" type="error">
+        <v-alert v-if="query.error" type="error">
           An error occurred while fetching the data.
           Please check your connection with the server and your research parameters.
         </v-alert>
@@ -44,7 +44,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v v-for="result in (results?.results || [])" :key="result?.application_number">
+            <tr v v-for="result in (query.results?.results || [])" :key="result?.application_number">
               <td class="text-left">{{ result?.openfda?.manufacturer_name?.[0] || '?' }}</td>
               <td class="text-left">{{ result?.openfda?.brand_name?.[0] || '?' }}</td>
               <td class="text-left">
@@ -55,44 +55,27 @@
           </v-table>
         </v-container>
       </v-row>
+      <div v-if="numberOfPages !== null || query.loading" class="text-center">
+        <v-pagination
+          :model-value="parameters.page"
+          :length="numberOfPages"
+          :disabled="query.loading"
+          :total-visible="7"
+          @update:modelValue="search"
+        ></v-pagination>
+      </div>
       <p id="result-count">
-        {{results?.meta?.results?.total || 0}} result(s)
+        {{query.results?.meta?.results?.total || 0}} result(s)
       </p>
     </v-responsive>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-import {ref} from "vue";
-import type {DrugsFdaResponse} from "@/types/drafModels";
-import {getDrugsManufacturer, getDrugsManufacturerBrand} from "@/api/v1/drugs/fdaDrugs";
 import {storeToRefs} from "pinia";
-import {useAppStore} from "@/stores/app";
+import {useFdaDrugSearchStore} from "@/stores/fdaDrugSearch";
 
-const { apiEndpoint } = storeToRefs(useAppStore());
-const manufacturerName = ref<string>('')
-const brandName = ref<string>('')
-const loading = ref<boolean>(false);
-const error = ref<boolean>(false);
-const results = ref<DrugsFdaResponse | null>(null);
-
-function searchDisabled() {
-  return manufacturerName.value.length < 2 || loading.value;
-}
-
-function search() {
-  loading.value = true;
-  results.value = null;
-  ((brandName.value.length === 0) ?
-    getDrugsManufacturer(apiEndpoint.value, manufacturerName.value) :
-    getDrugsManufacturerBrand(apiEndpoint.value, manufacturerName.value, brandName.value))
-    .then(response => {
-      results.value = response;
-      loading.value = false;
-      error.value = false;
-    }).catch(ignored => {
-      loading.value = false;
-      error.value = true;
-  })
-}
+const store = useFdaDrugSearchStore();
+const { query, parameters, searchDisabled, numberOfPages } = storeToRefs(store);
+const { search } = store;
 </script>
