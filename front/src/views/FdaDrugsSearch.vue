@@ -71,7 +71,7 @@
       <div v-if="numberOfPages !== null || query.loading" class="text-center">
         <v-pagination
           :model-value="parameters.page"
-          :length="numberOfPages"
+          :length="numberOfPages || 0"
           :disabled="query.loading"
           :total-visible="7"
           @update:model-value="store.search"
