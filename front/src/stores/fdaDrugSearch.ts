@@ -40,10 +40,8 @@ export const useFdaDrugSearchStore = defineStore('fdaDrugResearch', {
       if (state.query.loading || state.query.error || !state.query.results) {
         return null;
       }
-      return Math.ceil(
-        state.query.results.meta.results.total /
-          state.query.results.meta.results.limit
-      );
+      const {total, limit} = state.query.results.meta.results;
+      return Math.ceil(total / limit);
     },
     resultsDisplayed: state => {
       if (state.query.loading || state.query.error || !state.query.results) {
@@ -57,7 +55,7 @@ export const useFdaDrugSearchStore = defineStore('fdaDrugResearch', {
   },
   actions: {
     search(pageToSearch = 1) {
-      const { apiEndpoint } = useAppStore();
+      const {apiEndpoint} = useAppStore();
       this.parameters.page = pageToSearch;
       this.query = {
         loading: true,
@@ -70,7 +68,7 @@ export const useFdaDrugSearchStore = defineStore('fdaDrugResearch', {
             this.parameters.manufacturerName,
             pageToSearch
           )
-        : getDrugsManufacturerBrand(
+          : getDrugsManufacturerBrand(
             apiEndpoint,
             this.parameters.manufacturerName,
             this.parameters.brandName,
