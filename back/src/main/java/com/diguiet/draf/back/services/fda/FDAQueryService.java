@@ -1,4 +1,4 @@
-package com.diguiet.draf.back.services;
+package com.diguiet.draf.back.services.fda;
 
 import com.diguiet.draf.common.models.fda.DrugsFdaResponse;
 import lombok.*;
@@ -13,13 +13,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class FDADrugService {
+public class FDAQueryService {
     @Getter
     private final HttpUrl fdaDrugEndpoint;
     private final RestTemplate restTemplate;
     private final int maxPageSize;
 
-    public FDADrugService(
+    public FDAQueryService(
             @Value("${fda.api.json}") @NonNull final String fdaDrugEndpoint,
             @Value("${fda.api.page.maxSize}") final int maxPageSize
     ) {
@@ -88,7 +88,7 @@ public class FDADrugService {
         }
 
         private SearchQueryBuilder() {
-            this(FDADrugService.this.fdaDrugEndpoint.newBuilder(), FDADrugService.this.maxPageSize);
+            this(FDAQueryService.this.fdaDrugEndpoint.newBuilder(), FDAQueryService.this.maxPageSize);
         }
 
         public HttpUrl build() {
@@ -136,7 +136,7 @@ public class FDADrugService {
 
         private static String searchFieldQueryToString(
                 @NonNull final String fieldName,
-                @NonNull final FDADrugService.SearchQueryBuilder.SearchField searchField
+                @NonNull final FDAQueryService.SearchQueryBuilder.SearchField searchField
         ) {
             final StringBuilder stringBuilder = new StringBuilder(fieldName);
             if (searchField.exact) {

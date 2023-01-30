@@ -1,6 +1,6 @@
 package com.diguiet.draf.back.controllers.rest;
 
-import com.diguiet.draf.back.services.FDADrugService;
+import com.diguiet.draf.back.services.fda.FDAQueryService;
 import com.diguiet.draf.common.models.fda.DrugsFdaResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,10 +21,10 @@ import java.util.function.Supplier;
 @RequestMapping("/drugs/")
 @Slf4j
 public class DrugsController {
-    private final FDADrugService fdaDrugService;
+    private final FDAQueryService fdaQueryService;
 
-    public DrugsController(@Autowired @NonNull final FDADrugService fdaDrugService) {
-        this.fdaDrugService = fdaDrugService;
+    public DrugsController(@Autowired @NonNull final FDAQueryService fdaQueryService) {
+        this.fdaQueryService = fdaQueryService;
     }
 
     @Operation(summary = "Get Manufacturer Drugs")
@@ -46,7 +46,7 @@ public class DrugsController {
     public DrugsFdaResponse getManufacturerDrugs(
             @PathVariable @NonNull final String manufacturer
     ) {
-        return handleNotFoundException(() -> this.fdaDrugService.getByManufacturer(manufacturer));
+        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturer(manufacturer));
     }
 
     @Operation(summary = "Get Manufacturer Brand Drugs")
@@ -75,7 +75,7 @@ public class DrugsController {
             @PathVariable @NonNull final String manufacturer,
             @PathVariable @NonNull final String brand
     ) {
-        return handleNotFoundException(() -> this.fdaDrugService.getByManufacturerBrand(manufacturer, brand));
+        return handleNotFoundException(() -> this.fdaQueryService.getByManufacturerBrand(manufacturer, brand));
     }
 
     private static DrugsFdaResponse handleNotFoundException(@NonNull final Supplier<DrugsFdaResponse> supplier) {
