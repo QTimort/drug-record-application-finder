@@ -113,7 +113,7 @@ public class FDAQueryService {
             if (limit < 0) {
                 throw new IllegalArgumentException("Provided Limit must be a positive integer");
             }
-            this.limit = 0;
+            this.limit = limit;
             return this;
         }
 
