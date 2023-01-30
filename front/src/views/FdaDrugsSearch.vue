@@ -2,7 +2,7 @@
   <v-container>
     <h1>Search</h1>
     <v-responsive class="d-flex align-center text-center fill-height">
-      <v-row class="d-flex align-center justify-center">
+      <v-row class="d-flex align-center justify-center flex-column flex-sm-row">
         <v-col>
           <v-text-field
             id="manufacturer-input"
@@ -21,8 +21,9 @@
             placeholder="Heparin Sodium"
           />
         </v-col>
-        <v-col style="display: flex">
+        <v-col >
           <v-btn
+            :class="$vuetify.display.smAndDown ? 'w-100' : 'float-left'"
             id="search-btn"
             :loading="query.loading"
             :disabled="searchDisabled"
@@ -41,7 +42,7 @@
       </v-container>
       <v-row class="d-flex align-center justify-center">
         <v-container fluid>
-          <v-table fixed-header height="50vh" class="">
+          <v-table fixed-header height="50vh">
             <thead>
               <tr>
                 <th class="text-left">Manufacturer Name</th>

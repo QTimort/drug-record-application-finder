@@ -1,10 +1,14 @@
 <template>
-  <v-app-bar flat>
+  <v-app-bar flat class="px-4">
     <v-app-bar-title>
       <v-icon icon="mdi-pill" />
-      {{ title }}
+      <span class="hidden-xs">
+        {{ title }}
+      </span>
     </v-app-bar-title>
-    <theme-switcher />
+    <div>
+      <theme-switcher />
+    </div>
   </v-app-bar>
 </template>
 
