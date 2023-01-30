@@ -64,8 +64,8 @@
           @update:modelValue="search"
         ></v-pagination>
       </div>
-      <p id="result-count">
-        {{query.results?.meta?.results?.total || 0}} result(s)
+      <p v-if="query.results?.meta?.results" id="result-count">
+        Displaying {{query.results?.meta.results.limit}} out of {{query.results?.meta.results.total}} result(s)
       </p>
     </v-responsive>
   </v-container>
