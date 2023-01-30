@@ -8,6 +8,8 @@ import org.springframework.web.client.RestTemplate;
 import okhttp3.HttpUrl;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -73,7 +75,7 @@ public class FDAQueryService {
         private static final String MANUFACTURER_NAME_FIELD = "openfda.manufacturer_name";
         private static final String BRAND_NAME_FIELD = "openfda.brand_name";
         private static final String EXACT_MATCH_SUFFIX = ".exact";
-        private static final String AND_JOIN_OPERATOR = "\"+AND+\"";
+        private static final String AND_JOIN_OPERATOR = "+AND+";
         private final HttpUrl.Builder urlBuilder;
         private final int maxLimit;
 
@@ -104,7 +106,7 @@ public class FDAQueryService {
                     .map(searchField -> searchFieldQueryToString(searchField.getKey(), searchField.getValue()))
                     .collect(Collectors.joining(SearchQueryBuilder.AND_JOIN_OPERATOR));
 
-            return this.urlBuilder.setQueryParameter(
+            return this.urlBuilder.setEncodedQueryParameter(
                     SearchQueryBuilder.SEARCH_QUERY_PARAMETER_NAME,
                     searchQueryParameterValue
             ).setQueryParameter(
@@ -160,7 +162,12 @@ public class FDAQueryService {
             if (searchField.exact) {
                 stringBuilder.append(SearchQueryBuilder.EXACT_MATCH_SUFFIX);
             }
-            return stringBuilder.append(':').append(searchField.name).toString();
+            return stringBuilder
+                    .append(':')
+                    .append("\"")
+                    .append(URLEncoder.encode(searchField.name, StandardCharsets.UTF_8))
+                    .append("\"")
+                    .toString();
         }
     }
 
