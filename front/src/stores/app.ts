@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { getVersion } from '@/api/v1/version';
 import { getEnvOrDefault } from '@/config/env';
 import { defineInitializableStore } from '@/stores/defineInitializableStore';
-import type {ServerVersion} from "@/types/drafModels";
+import type { ServerVersion } from '@/types/drafModels';
 
 export interface AppState {
   apiEndpoint: string;

@@ -1,5 +1,5 @@
 import { mande } from 'mande';
-import type {ServerVersion} from "@/types/drafModels";
+import type { ServerVersion } from '@/types/drafModels';
 
 /**
  *

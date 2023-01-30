@@ -1,10 +1,10 @@
 <template>
   <v-switch
+    id="theme-switch"
     :model-value="theme.global.current.value.dark"
     style="display: flex"
     hint="This toggles the application theme"
     inset
-    id="theme-switch"
     label="Dark mode"
     persistent-hint
     @click="toggleTheme"
