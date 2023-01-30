@@ -7,7 +7,7 @@
     inset
     label="Dark mode"
     persistent-hint
-    hide-details=true
+    hide-details
     @click="toggleTheme"
   />
 </template>
